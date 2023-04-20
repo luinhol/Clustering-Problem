@@ -2,6 +2,10 @@ typedef struct ponto Ponto;
 
 Ponto* inicializaPonto(char* identificador, float x, float y);
 
-float getX();
+void liberaPonto(Ponto* p);
 
-float getY();
+char* getId(Ponto* p);
+
+float getX(Ponto* p);
+
+float getY(Ponto* p);
