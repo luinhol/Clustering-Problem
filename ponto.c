@@ -18,7 +18,8 @@ Ponto* inicializaPonto(char* identificador, float x, float y){
 }
 
 void liberaPonto(Ponto* p){
-
+    free(p->id);
+    free(p);
 }
 
 char* getId(Ponto* p){
