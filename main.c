@@ -76,6 +76,17 @@ int main(int argc, char *argv[])
         printf("aresta %d: p1: %s, p2: %s, dist: %0.2f\n", i, idP1, idP2, dist);
     }
 
+    qsort(vetArestas, tamanhoVetArestas, sizeof(Aresta*), arestComp);
+    
+    printf("vet ordenado:\n");
+    for(i = 0; i < tamanhoVetArestas; i++){
+        idP1 = getId(getp1(vetArestas[i]));
+        idP2 = getId(getp2(vetArestas[i]));
+        dist = getPeso(vetArestas[i]);
+        printf("aresta %d: p1: %s, p2: %s, dist: %0.2f\n", i, idP1, idP2, dist);
+    }
+
+
     liberaPontos(vetPontos, numLinhas);
     liberaArestas(vetArestas, tamanhoVetArestas);
     fclose(entrada);

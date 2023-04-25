@@ -31,3 +31,18 @@ Ponto* getp1(Aresta* a){
 Ponto* getp2(Aresta* a){
     return a->p2;
 }
+
+int arestComp(const void* a, const void* b) {
+    Aresta* arg1 = *(Aresta**)a;
+    Aresta* arg2 = *(Aresta**)b;
+
+    if(getPeso(arg1) < getPeso(arg2)){
+        return -1;
+    }
+    else if(getPeso(arg1) > getPeso(arg2)){
+        return 1;
+    }
+    else{
+        return 0;
+    }
+}
