@@ -5,6 +5,7 @@
 #include <string.h>
 #include "ponto.h"
 #include "aresta.h"
+#include "kruskal.h"
 
 static int getNumLinhas(FILE *entrada);
 static void getPontos(FILE *entrada, Ponto **vet);
@@ -21,6 +22,8 @@ int main(int argc, char *argv[])
     char nomeArquivo[99] = "./entrada.txt";
     FILE *entrada;
     int numLinhas = 0;
+
+    int numConjuntos = 3;
 
     // strcat(nomeArquivo, argv[1]);
 
@@ -52,7 +55,7 @@ int main(int argc, char *argv[])
     // escreve distancias.txt
 
     // testes
-    int i;
+    int i, num;
     char *id;
     float x, y;
     for (i = 0; i < numLinhas; i++)
@@ -60,7 +63,8 @@ int main(int argc, char *argv[])
         id = getId(vetPontos[i]);
         x = getX(vetPontos[i]);
         y = getY(vetPontos[i]);
-        printf("id: %s, x: %0.2f, y: %0.2f\n", id, x, y);
+        num = getNum(vetPontos[i]);
+        printf("id: %s, num: %d, x: %0.2f, y: %0.2f\n", id, num, x, y);
     }
 
     printf("\n\n");
@@ -68,23 +72,24 @@ int main(int argc, char *argv[])
     char* idP1;
     char* idP2;
     float dist;
-    printf("tamanho vet arestas: %d\n", tamanhoVetArestas);
-    for(i = 0; i < tamanhoVetArestas; i++){
-        idP1 = getId(getp1(vetArestas[i]));
-        idP2 = getId(getp2(vetArestas[i]));
-        dist = getPeso(vetArestas[i]);
-        printf("aresta %d: p1: %s, p2: %s, dist: %0.2f\n", i, idP1, idP2, dist);
-    }
+    // printf("tamanho vet arestas: %d\n", tamanhoVetArestas);
+    // for(i = 0; i < tamanhoVetArestas; i++){
+    //     idP1 = getId(getp1(vetArestas[i]));
+    //     idP2 = getId(getp2(vetArestas[i]));
+    //     dist = getPeso(vetArestas[i]);
+    //     printf("aresta %d: p1- %s, p2- %s, dist- %0.2f\n", i, idP1, idP2, dist);
+    // }
 
-    qsort(vetArestas, tamanhoVetArestas, sizeof(Aresta*), arestComp);
-    
-    printf("vet ordenado:\n");
-    for(i = 0; i < tamanhoVetArestas; i++){
-        idP1 = getId(getp1(vetArestas[i]));
-        idP2 = getId(getp2(vetArestas[i]));
-        dist = getPeso(vetArestas[i]);
-        printf("aresta %d: p1: %s, p2: %s, dist: %0.2f\n", i, idP1, idP2, dist);
-    }
+    kruskalAlgo(vetArestas, tamanhoVetArestas, numLinhas, numConjuntos);
+    // qsort(vetArestas, tamanhoVetArestas, sizeof(Aresta*), arestComp);
+
+    // printf("vet ordenado:\n");
+    // for(i = 0; i < tamanhoVetArestas; i++){
+    //     idP1 = getId(getp1(vetArestas[i]));
+    //     idP2 = getId(getp2(vetArestas[i]));
+    //     dist = getPeso(vetArestas[i]);
+    //     printf("aresta %d: p1- %s, p2- %s, dist- %0.2f\n", i, idP1, idP2, dist);
+    // }
 
 
     liberaPontos(vetPontos, numLinhas);
@@ -154,7 +159,7 @@ static void getPontos(FILE *entrada, Ponto **vet)
             y = atof(pt);
 
             // insere ponto no vet na posicao lineno
-            vet[lineno] = inicializaPonto(id, x, y);
+            vet[lineno] = inicializaPonto(id, x, y, lineno);
 
             // teste
             // printf("id: %s, x: %0.2f, y: %0.2f\n", id, x, y);
