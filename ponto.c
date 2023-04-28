@@ -32,10 +32,21 @@ int getNum(Ponto* p){
     return p->number;
 }
 
+void setNum(Ponto* p, int num){
+    p->number = num;
+}
+
 float getX(Ponto* p){
     return p->x;
 }
 
 float getY(Ponto* p){
     return p->y;
+}
+
+int pontoComp(const void* a, const void* b) {
+    Ponto* arg1 = *(Ponto**)a;
+    Ponto* arg2 = *(Ponto**)b;
+
+    return strcmp(getId(arg1), getId(arg2));
 }

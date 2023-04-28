@@ -5,7 +5,7 @@ typedef struct aresta Aresta;
 Aresta* inicializaAresta(Ponto* p1, Ponto* p2, float peso);
 
 // todo
-void liberaAresta();
+void liberaAresta(Aresta* a);
 
 float getPeso(Aresta* a);
 

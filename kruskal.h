@@ -14,4 +14,6 @@ void uni(int p, int q, int parent[], int rank[]);
 
 int conteudo(int parent[], int p);
 
-void kruskalAlgo(Aresta *vetArestas[], int tamanhoVetArestas, int numPontos, int numConjuntos);
+void kruskalAlgo(int parent[], int rank[], Aresta *vetArestas[], int tamanhoVetArestas, int numPontos, int numConjuntos);
+
+void printAgrupamentos(int parent[], int rank[], Ponto* vetPontos[], int numPontos);
