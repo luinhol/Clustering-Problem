@@ -14,9 +14,6 @@ static float dist(Ponto *p1, Ponto *p2);
 static void liberaPontos(Ponto **vetPontos, int numPontos);
 static void liberaArestas(Aresta **vetArestas, int tamVetArestas);
 
-// execucao:
-// ./prog entrada.txt
-
 int main(int argc, char *argv[])
 {
     char nomeArquivo[99] = "";
@@ -40,10 +37,16 @@ int main(int argc, char *argv[])
     // printf("num linhas: %d\n", numLinhas);
 
     // aloca vet de pontos
-    Ponto *vetPontos[numLinhas];
+    Ponto** vetPontos;
+    vetPontos = (Ponto**)malloc(sizeof(Ponto*)*numLinhas);
+
+    
     // aloca vetor de distancias
     int tamanhoVetArestas = ((numLinhas-1) * numLinhas) / 2;
-    Aresta *vetArestas[tamanhoVetArestas];
+
+
+    Aresta** vetArestas;
+    vetArestas = (Aresta**)malloc(sizeof(Aresta*)*tamanhoVetArestas);
     // aloca vetor para armazenar os conjuntos
     int parent[numLinhas];
     int rank[numLinhas];
@@ -64,48 +67,22 @@ int main(int argc, char *argv[])
     // teste
     char *id;
     float x, y;
-    // for (i = 0; i < numLinhas; i++)
-    // {
-    //     id = getId(vetPontos[i]);
-    //     x = getX(vetPontos[i]);
-    //     y = getY(vetPontos[i]);
-    //     num = getNum(vetPontos[i]);
-    //     printf("id: %s, num: %d, x: %0.2f, y: %0.2f\n", id, num, x, y);
-    // }
-    // printf("\n\n");
 
     // teste
     char* idP1;
     char* idP2;
     float dist;
 
-    // teste
-    // printf("tamanho vet arestas: %d\n", tamanhoVetArestas);
-    // for(i = 0; i < tamanhoVetArestas; i++){
-    //     idP1 = getId(getp1(vetArestas[i]));
-    //     idP2 = getId(getp2(vetArestas[i]));
-    //     dist = getPeso(vetArestas[i]);
-    //     printf("aresta %d: p1- %s, p2- %s, dist- %0.2f\n", i, idP1, idP2, dist);
-    // }
-
     kruskalAlgo(parent, rank, vetArestas, tamanhoVetArestas, numLinhas, numConjuntos);
 
-    // printf("\nagrupamentos:\n");
     printAgrupamentos(parent, rank, vetPontos, numLinhas);
-
-    // teste
-    // printf("vet ordenado:\n");
-    // for(i = 0; i < tamanhoVetArestas; i++){
-    //     idP1 = getId(getp1(vetArestas[i]));
-    //     idP2 = getId(getp2(vetArestas[i]));
-    //     dist = getPeso(vetArestas[i]);
-    //     printf("aresta %d: p1- %s, p2- %s, dist- %0.2f\n", i, idP1, idP2, dist);
-    // }
 
 
     liberaPontos(vetPontos, numLinhas);
     liberaArestas(vetArestas, tamanhoVetArestas);
     fclose(entrada);
+    free(vetArestas);
+    free(vetPontos);
     return 0;
 }
 
@@ -172,9 +149,6 @@ static void getPontos(FILE *entrada, Ponto **vet)
             // insere ponto no vet na posicao lineno
             vet[lineno] = inicializaPonto(id, x, y, lineno);
 
-            // teste
-            // printf("id: %s, x: %0.2f, y: %0.2f\n", id, x, y);
-
             lineno++;
         }
     }
@@ -191,8 +165,6 @@ static void getArestas(Ponto **vetPontos, int numPontos, Aresta **vetArestas)
         for (j = i + 1; j < numPontos; j++)
         {
             d = dist(vetPontos[i], vetPontos[j]);
-            // teste
-            // printf("inserindo aresta, p1= %s, p2= %s, dist= %0.2f na posicao: %d\n", getId(vetPontos[i]), getId(vetPontos[j]), d, posicao);
             vetArestas[posicao] = inicializaAresta(vetPontos[i], vetPontos[j], d);
             posicao++;
         }
