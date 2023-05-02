@@ -6,21 +6,20 @@ struct ponto
 {
     char* id;
     int number;
-    float x;
-    float y;
+    float* coords;
 };
 
-Ponto* inicializaPonto(char* identificador, float x, float y, int num){
+Ponto* inicializaPonto(char* identificador, float* coords, int num){
     Ponto* p = (Ponto*)malloc(sizeof(Ponto));
     p->id = identificador;
     p->number = num;
-    p->x = x;
-    p->y = y;
+    p->coords = coords;
     return p;
 }
 
 void liberaPonto(Ponto* p){
     free(p->id);
+    free(p->coords);
     free(p);
 }
 
@@ -36,12 +35,8 @@ void setNum(Ponto* p, int num){
     p->number = num;
 }
 
-float getX(Ponto* p){
-    return p->x;
-}
-
-float getY(Ponto* p){
-    return p->y;
+float getCoord(Ponto* p, int k){
+    return p->coords[k];
 }
 
 int pontoComp(const void* a, const void* b) {

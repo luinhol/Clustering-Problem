@@ -5,7 +5,7 @@
 
 typedef struct ponto Ponto;
 
-Ponto* inicializaPonto(char* identificador, float x, float y, int num);
+Ponto* inicializaPonto(char* identificador, float* coords, int num);
 
 void liberaPonto(Ponto* p);
 
@@ -15,8 +15,6 @@ int getNum(Ponto* p);
 
 void setNum(Ponto* p, int num);
 
-float getX(Ponto* p);
-
-float getY(Ponto* p);
+float getCoord(Ponto* p, int k);
 
 int pontoComp(const void* a, const void* b);
