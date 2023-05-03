@@ -1,3 +1,8 @@
+/** Define um tad Aresta.
+ * @file aresta.c
+ * @author Lucas Pereira Taborda e Gabriel de Castro Lima
+ */
+
 #include "aresta.h"
 
 struct aresta
@@ -15,7 +20,6 @@ Aresta* inicializaAresta(Ponto* p1, Ponto* p2, float peso){
     return a;
 }
 
-// todo
 void liberaAresta(Aresta* a){
     free(a);
 }
@@ -44,5 +48,12 @@ int arestComp(const void* a, const void* b) {
     }
     else{
         return 0;
+    }
+}
+
+void liberaArestas(Aresta **vetArestas, int tamVetArestas){
+    int i;
+    for(i = 0; i < tamVetArestas; i++){
+        liberaAresta(vetArestas[i]);
     }
 }
