@@ -11,23 +11,29 @@
 int main(int argc, char *argv[])
 {
     // declaracao de variaveis
-    char nomeArquivo[99] = "";
+    char nomeArquivoEntrada[99] = "";
     FILE *entrada;
+
+    char nomeArquivoSaida[99] = "";
+    FILE *saida;
+
     int numLinhas = 0, numCoords = 0, i, num, j;
 
-    // copia o nome do arquivo fornecido como parametro
-    strcat(nomeArquivo, argv[1]);
+    // copia o nome dos arquivos fornecidos como parametros
+    strcat(nomeArquivoEntrada, argv[1]);
+    strcat(nomeArquivoSaida, argv[3]);
 
     // adquire o numero de conjuntos fornecido como parametro
     int numConjuntos = atoi(argv[2]);
 
-    // realiza abertura do arquivo para manipulacao
-    entrada = fopen(nomeArquivo, "r");
+    // realiza abertura dos arquivos para manipulacao
+    entrada = fopen(nomeArquivoEntrada, "r");
+    saida = fopen(nomeArquivoSaida, "w");
 
-    // verifica se o arquivo é válido
+    // verifica se o arquivo de entrada é válido
     if (entrada == NULL)
     {
-        printf("nao foi possivel abrir o arquivo\n");
+        printf("nao foi possivel abrir o arquivo de entrada\n");
         return 0;
     }
 
@@ -69,12 +75,13 @@ int main(int argc, char *argv[])
     kruskalAlgo(parent, rank, vetArestas, tamanhoVetArestas, numLinhas, numConjuntos);
 
     // printa os agrupamentos
-    printAgrupamentos(parent, rank, vetPontos, numLinhas);
+    printAgrupamentos(saida, parent, rank, vetPontos, numLinhas);
 
     // libera as variaveis alocadas dinamicamente e fechando o arquivo aberto   
     liberaPontos(vetPontos, numLinhas);
     liberaArestas(vetArestas, tamanhoVetArestas);
     fclose(entrada);
+    fclose(saida);
     free(vetArestas);
     free(vetPontos);
     return 0;

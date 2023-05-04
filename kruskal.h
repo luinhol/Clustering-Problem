@@ -60,4 +60,4 @@ void kruskalAlgo(int parent[], int rank[], Aresta *vetArestas[], int tamanhoVetA
  * @param vetPontos Vetor de pontos
  * @param numPontos Quantidade de pontos
  */
-void printAgrupamentos(int parent[], int rank[], Ponto* vetPontos[], int numPontos);
+void printAgrupamentos(FILE *saida, int parent[], int rank[], Ponto* vetPontos[], int numPontos);

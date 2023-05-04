@@ -77,7 +77,7 @@ void kruskalAlgo(int parent[], int rank[], Aresta *vetArestas[], int tamanhoVetA
 	}
 }
 
-void printAgrupamentos(int parent[], int rank[], Ponto* vetPontos[], int numPontos){
+void printAgrupamentos(FILE *saida, int parent[], int rank[], Ponto* vetPontos[], int numPontos){
     int i, j;
 
     // percorre o vetor de elementos
@@ -86,7 +86,7 @@ void printAgrupamentos(int parent[], int rank[], Ponto* vetPontos[], int numPont
         // verifica se o rank do elemento é 0 (caso ja tenha sido imprimido)
         if(rank[j] != 0){
             // imprime o primeiro elemento do conjunto
-            printf("%s", getId(vetPontos[j]));
+            fprintf(saida, "%s", getId(vetPontos[j]));
 
             // percorre o vetor de elementos verificando se o elemento i e j tem a mesma raiz
             for(i = j+1; i < numPontos; i++){
@@ -95,11 +95,11 @@ void printAgrupamentos(int parent[], int rank[], Ponto* vetPontos[], int numPont
                     // zera o rank do elemento
                     rank[i] = 0;
                     // imprime os elementos seguintes
-                    printf(",%s", getId(vetPontos[i]));
+                    fprintf(saida, ",%s", getId(vetPontos[i]));
                 }
             }
             // imprime quebra de linha
-            printf("\n");
+            fprintf(saida, "\n");
         }
     }
 }
