@@ -53,9 +53,11 @@ int main(int argc, char *argv[])
     Aresta** vetArestas;
     vetArestas = (Aresta**)malloc(sizeof(Aresta*)*tamanhoVetArestas);
 
-    // aloca vetores para armazenar os conjuntos
-    int parent[numLinhas];
-    int rank[numLinhas];
+    // aloca dinamicamente vetores para armazenar os conjuntos
+    int* parent;
+    parent = (int*)malloc(sizeof(int)*numLinhas);
+    int* rank;
+    rank = (int*)malloc(sizeof(int)*numLinhas);
 
     // salva os pontos no vet de pontos
     getPontos(entrada, vetPontos, numCoords);
@@ -84,5 +86,7 @@ int main(int argc, char *argv[])
     fclose(saida);
     free(vetArestas);
     free(vetPontos);
+    free(parent);
+    free(rank);
     return 0;
 }
