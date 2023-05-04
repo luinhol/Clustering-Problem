@@ -2,6 +2,11 @@
 #include <stdlib.h>
 #include "aresta.h"
 
+/**
+ * Função que retorna o numero de linhas validas do documento de entrada (numero de linhas que contem pontos)
+ * @param entrada Arquivo de entrada
+ * @return Numero de linhas com pontos
+ */
 int getNumLinhas(FILE *entrada);
 
 /**
@@ -11,15 +16,6 @@ int getNumLinhas(FILE *entrada);
  * @param numCoords Numero de coordenadas de cada ponto
  */
 void getPontos(FILE *entrada, Ponto **vet, int numCoords);
-
-/**
- * Função que realiza a leitura do arquivo de entrada, inicializa as arestas, inserindo os pontos
- * @param vetPontos Vetor de pontos
- * @param numPontos Quantidade de pontos
- * @param numCoords Numero de coordenadas de cada ponto
- * @param vetArestas Vetor de arestas
- */
-void getArestas(Ponto **vetPontos, int numPontos,int numCoords, Aresta **vetArestas);
 
 /**
  * Função que retorna o numero de coordanadas de cada ponto

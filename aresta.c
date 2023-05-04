@@ -20,6 +20,22 @@ Aresta* inicializaAresta(Ponto* p1, Ponto* p2, float peso){
     return a;
 }
 
+void setArestas(Ponto **vetPontos, int numPontos, int numCoords, Aresta **vetArestas)
+{
+    int i, j, posicao = 0;
+    float d = 0;
+
+    for (i = 0; i < numPontos; i++)
+    {
+        for (j = i + 1; j < numPontos; j++)
+        {
+            d = dist(vetPontos[i], vetPontos[j], numCoords);
+            vetArestas[posicao] = inicializaAresta(vetPontos[i], vetPontos[j], d);
+            posicao++;
+        }
+    }
+}
+
 void liberaAresta(Aresta* a){
     free(a);
 }

@@ -63,7 +63,7 @@ int main(int argc, char *argv[])
 
     // preenche vetor de distancias
     // calculando a distancia entre 2 pontos
-    getArestas(vetPontos, numLinhas, numCoords, vetArestas);
+    setArestas(vetPontos, numLinhas, numCoords, vetArestas);
 
     // realiza o algoritmo kruskal
     kruskalAlgo(parent, rank, vetArestas, tamanhoVetArestas, numLinhas, numConjuntos);

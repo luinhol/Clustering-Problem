@@ -1,11 +1,6 @@
 #include "arquivo.h"
 #include <sys/types.h>
 
-/**
- * Função que retorna o numero de linhas validas do documento de entrada (numero de linhas que contem pontos)
- * @param entrada Arquivo de entrada
- * @return Numero de linhas com pontos
- */
 int getNumLinhas(FILE *entrada)
 {
     fseek(entrada, 0, SEEK_SET);
@@ -13,8 +8,10 @@ int getNumLinhas(FILE *entrada)
     char *line = NULL;
     int lineno = 0;
 
+    // enquanto nao chega ao final do arquivo
     while (!feof_unlocked(entrada))
     {
+        // le a linha correspondente
         ssize_t n = getline(&line, &len, entrada);
         if (n <= 0)
         {
@@ -23,13 +20,13 @@ int getNumLinhas(FILE *entrada)
         }
         if (n > 1)
         {
+            // se a linha tiver tamanho > 1, incrementa o numero de linhas
             ++lineno;
         }
     }
     free(line);
     return lineno;
 }
-
 
 int getNumCoordenadas(FILE *entrada)
 {
@@ -39,6 +36,7 @@ int getNumCoordenadas(FILE *entrada)
     char *pt;
     int numCoords = 0;
 
+    // le a primeira linha do arquivo
     ssize_t n = getline(&line, &len, entrada);
     if (n <= 0)
     {
@@ -46,11 +44,14 @@ int getNumCoordenadas(FILE *entrada)
         return 0;
     }
 
+    // le o id do ponto mas nao utiliza para nada
     pt = strtok(line, ",");
 
+    // loop lendo a quantidade de coordenadas
     while (pt != NULL)
     {
         pt = strtok(NULL, ",");
+        // incrementa coordenadas
         numCoords++;
     }
     free(line);
@@ -70,22 +71,27 @@ void getPontos(FILE *entrada, Ponto **vet, int numCoords)
     int idSize = 0;
     int i;
 
+    // enquanto nao chega ao final do arquivo
     while (!feof_unlocked(entrada))
     {
+        // faz a leitura da linha
         ssize_t n = getline(&line, &len, entrada);
         if (n <= 0)
         {
             // linha vazia ou final do arquivo
             break;
         }
+        // se nao for uma linha nula
         if (n > 1)
         {
+            // aloca espaco para as coordenadas do ponto
             coords = (float*)malloc(sizeof(float*)*numCoords);
 
             // armazena a id do ponto
             pt = strtok(line, ",");
             id = strdup(pt);
 
+            // realiza a leitura das coordenadas, inserindo no vetor
             for(i = 0; i < numCoords; i++){
                 pt = strtok(NULL, ",");
                 coords[i] = atof(pt);
@@ -94,24 +100,9 @@ void getPontos(FILE *entrada, Ponto **vet, int numCoords)
             // insere ponto no vet na posicao lineno
             vet[lineno] = inicializaPonto(id, coords, lineno);
 
+            // incrementa a linha
             lineno++;
         }
     }
     free(line);
-}
-
-void getArestas(Ponto **vetPontos, int numPontos, int numCoords, Aresta **vetArestas)
-{
-    int i, j, posicao = 0;
-    float d = 0;
-
-    for (i = 0; i < numPontos; i++)
-    {
-        for (j = i + 1; j < numPontos; j++)
-        {
-            d = dist(vetPontos[i], vetPontos[j], numCoords);
-            vetArestas[posicao] = inicializaAresta(vetPontos[i], vetPontos[j], d);
-            posicao++;
-        }
-    }
 }

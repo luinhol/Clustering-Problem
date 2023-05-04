@@ -20,6 +20,15 @@ typedef struct aresta Aresta;
 Aresta* inicializaAresta(Ponto* p1, Ponto* p2, float peso);
 
 /**
+ * Função que realiza a leitura do arquivo de entrada, inicializa as arestas, inserindo os pontos
+ * @param vetPontos Vetor de pontos
+ * @param numPontos Quantidade de pontos
+ * @param numCoords Numero de coordenadas de cada ponto
+ * @param vetArestas Vetor de arestas
+ */
+void setArestas(Ponto **vetPontos, int numPontos,int numCoords, Aresta **vetArestas);
+
+/**
  * Destrutor de aresta
  * @param a Aresta
  */
