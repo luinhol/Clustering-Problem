@@ -55,6 +55,7 @@ void kruskalAlgo(int parent[], int rank[], Aresta *vetArestas[], int tamanhoVetA
 
 /**
  * Função que imprime os agrupamentos do vetor de conjuntos
+ * @param saida Arquivo de saida
  * @param parent Vetor de elementos
  * @param rank Vetor de pesos
  * @param vetPontos Vetor de pontos
